@@ -20,8 +20,10 @@ type Page struct {
 func (search *Search) All() []Page {
 	var pages = make([]Page, 0, len(search.Query.Pages))
 
-	for _, page := range search.Query.Pages {
-		pages = append(pages, page)
+	for key, page := range search.Query.Pages {
+		if key != "-1" {
+			pages = append(pages, page)
+		}
 	}
 
 	return pages
@@ -30,8 +32,8 @@ func (search *Search) All() []Page {
 func (search *Search) Filtered(searchValue string) []Page {
 	var pages = make([]Page, 0, len(search.Query.Pages))
 
-	for _, page := range search.Query.Pages {
-		if page.Title == searchValue {
+	for key, page := range search.Query.Pages {
+		if key != "-1" && page.Title == searchValue {
 			pages = append(pages, page)
 		}
 	}
