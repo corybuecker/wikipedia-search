@@ -1,3 +1,6 @@
-package: github.com/corybuecker/wikipedia-search
+package: github.com/corybuecker/wikipediasearch
 import:
 - package: github.com/corybuecker/jsonfetcher
+testImport:
+- package: github.com/jarcoal/httpmock
+- package: github.com/stretchr/testify/assert
