@@ -1,0 +1,6 @@
+hash: 050c51e400500d0c1bf566299d60094a9f12514e9f1a9f1bcb445079fbeb08ad
+updated: 2016-08-24T20:37:33.319442672-05:00
+imports:
+- name: github.com/corybuecker/jsonfetcher
+  version: a5715629adf9a579a2a9941a53a733104cd4e454
+testImports: []

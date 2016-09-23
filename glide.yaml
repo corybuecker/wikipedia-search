@@ -1,0 +1,3 @@
+package: github.com/corybuecker/wikipedia-search
+import:
+- package: github.com/corybuecker/jsonfetcher
