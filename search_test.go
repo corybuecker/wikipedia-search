@@ -12,6 +12,7 @@ var testPayload []byte
 var missingPagePayload []byte
 
 var exactMatchSearch = "Mount & Blade"
+var exactMatchSearchRedirect = "Mount and Blade"
 var nonExactMatchSearch = "Mount"
 var missingPageSearch = "Titan Quest Anniversary Edition"
 
@@ -23,6 +24,7 @@ func TestRunner(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", generateURL(exactMatchSearch), httpmock.NewBytesResponder(200, testPayload))
+	httpmock.RegisterResponder("GET", generateURL(exactMatchSearchRedirect), httpmock.NewBytesResponder(200, testPayload))
 	httpmock.RegisterResponder("GET", generateURL(nonExactMatchSearch), httpmock.NewBytesResponder(200, testPayload))
 	httpmock.RegisterResponder("GET", generateURL(missingPageSearch), httpmock.NewBytesResponder(200, missingPagePayload))
 
@@ -30,6 +32,7 @@ func TestRunner(t *testing.T) {
 	t.Run("matching results with exact match", matchingResultsWithExactMatch)
 	t.Run("results without exact match", resultsWithoutExactMatch)
 	t.Run("error from fetcher", errorFromFetcher)
+	t.Run("matching results from redirects", matchingResultsFromRedirect)
 	t.Run("missing page not returned", missingPageNotReturned)
 	t.Run("missing page not returned with exact match", missingPageNotReturnedExactMatch)
 }
@@ -53,6 +56,11 @@ func errorFromFetcher(t *testing.T) {
 	httpmock.RegisterResponder("GET", generateURL(exactMatchSearch), httpmock.NewStringResponder(500, ""))
 	_, err := Search(exactMatchSearch, true)
 	assert.Error(t, err)
+}
+
+func matchingResultsFromRedirect(t *testing.T) {
+	results, _ := Search(exactMatchSearchRedirect, true)
+	assert.Equal(t, results[0].ID, 2008127)
 }
 
 func missingPageNotReturned(t *testing.T) {
