@@ -1,15 +1,14 @@
-package main
+package wikipediasearch
 
 import (
 	"fmt"
 	"net/url"
 
 	"github.com/corybuecker/jsonfetcher"
-	"github.com/corybuecker/wikipedia-search/wikipedia"
 )
 
-func Search(search string, exactMatch bool) (results []wikipedia.Page, err error) {
-	var searchResults = wikipedia.Search{}
+func Search(search string, exactMatch bool) (results []Page, err error) {
+	var searchResults = SearchResults{}
 	var jsonFetcher = jsonfetcher.Jsonfetcher{}
 
 	if err := jsonFetcher.Fetch(generateURL(search), &searchResults); err != nil {

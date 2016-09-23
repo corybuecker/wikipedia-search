@@ -1,7 +1,6 @@
-package wikipedia
+package wikipediasearch
 
-type Search struct {
-	Page  Page
+type SearchResults struct {
 	Query struct {
 		Pages map[string]Page `json:"pages"`
 	} `json:"query"`
@@ -17,7 +16,7 @@ type Page struct {
 	} `json:"redirects"`
 }
 
-func (search *Search) All() []Page {
+func (search *SearchResults) All() []Page {
 	var pages = make([]Page, 0, len(search.Query.Pages))
 
 	for key, page := range search.Query.Pages {
@@ -29,7 +28,7 @@ func (search *Search) All() []Page {
 	return pages
 }
 
-func (search *Search) Filtered(searchValue string) []Page {
+func (search *SearchResults) Filtered(searchValue string) []Page {
 	var pages = make([]Page, 0, len(search.Query.Pages))
 
 	for key, page := range search.Query.Pages {

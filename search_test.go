@@ -1,4 +1,4 @@
-package main
+package wikipediasearch
 
 import (
 	"io/ioutil"
@@ -26,20 +26,27 @@ func TestRunner(t *testing.T) {
 	httpmock.RegisterResponder("GET", generateURL(nonExactMatchSearch), httpmock.NewBytesResponder(200, testPayload))
 	httpmock.RegisterResponder("GET", generateURL(missingPageSearch), httpmock.NewBytesResponder(200, missingPagePayload))
 
+	t.Run("non-matching results with exact match", nonMatchingResultsWithExactMatch)
+	t.Run("matching results with exact match", matchingResultsWithExactMatch)
 	t.Run("results without exact match", resultsWithoutExactMatch)
-	t.Run("results with exact match", resultsWithExactMatch)
 	t.Run("error from fetcher", errorFromFetcher)
 	t.Run("missing page not returned", missingPageNotReturned)
+	t.Run("missing page not returned with exact match", missingPageNotReturnedExactMatch)
 }
 
-func resultsWithoutExactMatch(t *testing.T) {
-	results, _ := Search(exactMatchSearch, false)
+func nonMatchingResultsWithExactMatch(t *testing.T) {
+	results, _ := Search(nonExactMatchSearch, true)
+	assert.Empty(t, results)
+}
+
+func matchingResultsWithExactMatch(t *testing.T) {
+	results, _ := Search(exactMatchSearch, true)
 	assert.Equal(t, results[0].ID, 2008127)
 }
 
-func resultsWithExactMatch(t *testing.T) {
-	results, _ := Search(nonExactMatchSearch, true)
-	assert.Empty(t, results)
+func resultsWithoutExactMatch(t *testing.T) {
+	results, _ := Search(nonExactMatchSearch, false)
+	assert.Equal(t, results[0].ID, 2008127)
 }
 
 func errorFromFetcher(t *testing.T) {
@@ -49,6 +56,11 @@ func errorFromFetcher(t *testing.T) {
 }
 
 func missingPageNotReturned(t *testing.T) {
+	results, _ := Search(missingPageSearch, false)
+	assert.Empty(t, results)
+}
+
+func missingPageNotReturnedExactMatch(t *testing.T) {
 	results, _ := Search(missingPageSearch, true)
 	assert.Empty(t, results)
 }
