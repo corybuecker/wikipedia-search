@@ -23,6 +23,7 @@ func TestRunner(t *testing.T) {
 
 	t.Run("results without exact match", resultsWithoutExactMatch)
 	t.Run("results with exact match", resultsWithExactMatch)
+	t.Run("error from fetcher", errorFromFetcher)
 }
 
 func resultsWithoutExactMatch(t *testing.T) {
@@ -33,4 +34,10 @@ func resultsWithoutExactMatch(t *testing.T) {
 func resultsWithExactMatch(t *testing.T) {
 	results, _ := Search(nonExactMatchSearch, true)
 	assert.Empty(t, results)
+}
+
+func errorFromFetcher(t *testing.T) {
+	httpmock.RegisterResponder("GET", generateURL(exactMatchSearch), httpmock.NewStringResponder(500, ""))
+	_, err := Search(exactMatchSearch, true)
+	assert.Error(t, err)
 }
