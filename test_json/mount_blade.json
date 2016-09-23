@@ -1,0 +1,44 @@
+{
+	"batchcomplete": "",
+	"query": {
+		"pages": {
+			"2008127": {
+				"pageid": 2008127,
+				"ns": 0,
+				"title": "Mount & Blade",
+				"contentmodel": "wikitext",
+				"pagelanguage": "en",
+				"pagelanguagehtmlcode": "en",
+				"pagelanguagedir": "ltr",
+				"touched": "2016-09-17T20:32:56Z",
+				"lastrevid": 739411626,
+				"length": 19546,
+				"fullurl": "https://en.wikipedia.org/wiki/Mount_%26_Blade",
+				"editurl": "https://en.wikipedia.org/w/index.php?title=Mount_%26_Blade&action=edit",
+				"canonicalurl": "https://en.wikipedia.org/wiki/Mount_%26_Blade",
+				"redirects": [
+					{
+						"pageid": 2198784,
+						"ns": 0,
+						"title": "Mount and Blade"
+					},
+					{
+						"pageid": 2198804,
+						"ns": 0,
+						"title": "Mount and blade"
+					},
+					{
+						"pageid": 15300915,
+						"ns": 0,
+						"title": "Mount blade"
+					},
+					{
+						"pageid": 36536339,
+						"ns": 0,
+						"title": "Mount&Blade"
+					}
+				]
+			}
+		}
+	}
+}
